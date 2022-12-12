@@ -14,8 +14,8 @@ def keep_away():
         "false": 0,
         "count": 0
     }
-
-    rounds = 20
+    
+    modulo = 1
     monkeys = []
     current_monkey = None
 
@@ -38,18 +38,23 @@ def keep_away():
                     monkeys[current_monkey]['amount'] = int(parts[-1])
             case ["Test:", *parts]:
                 monkeys[current_monkey]['test'] = int(parts[-1])
+                modulo *= monkeys[current_monkey]['test']
             case ["If", *parts]:
                 if parts[0] == "true:":
                     monkeys[current_monkey]['true'] = int(parts[-1])
                 elif parts[0] == "false:":
                     monkeys[current_monkey]['false'] = int(parts[-1])
 
+    execute_rounds(deepcopy(monkeys), 20, int_div, 3)
+    execute_rounds(deepcopy(monkeys), 10000, remainder, modulo)
+
+def execute_rounds(monkeys, rounds, function, number):
     for _ in range(rounds):
         for monkey in monkeys:
             for item in monkey['items']:
                 monkey["count"] += 1
                 new = monkey['operation'](item, monkey['amount'])
-                new //= 3
+                new = function(new, number)
                 if new % monkey['test'] == 0:
                     monkeys[monkey['true']]['items'].append(new)
                 else:
@@ -69,6 +74,12 @@ def multiplication(old, amount):
 
 def squared(old, amount):
     return old ** 2
+
+def int_div(new, number):
+    return new // number
+
+def remainder(new, number):
+    return new % number
 
 if __name__ == "__main__":
     keep_away()
