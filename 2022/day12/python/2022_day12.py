@@ -16,12 +16,15 @@ def pathfinder():
     begin_y, begin_x = [coordinate[0] for coordinate in np.where(grid == "S")]
     grid[begin_y, begin_x] = "a"
     begin = begin_y * columns + begin_x
-    queue.put(begin)
-    counts[begin] = 0
 
     end_y, end_x = [coordinate[0] for coordinate in np.where(grid == "E")]
     grid[end_y, end_x] = "z"
     end = end_y * columns + end_x
+    queue.put(end)
+    counts[end] = 0
+
+    lowest_y, lowest_x = [coordinate for coordinate in np.where(grid == "a")]
+    lowest = lowest_y * columns + lowest_x
 
     for i, row in enumerate(grid):
         for j, column in enumerate(row):
@@ -34,7 +37,7 @@ def pathfinder():
                 if y not in range(rows) or x not in range(columns):
                     continue
 
-                if ord(grid[y, x]) -  ord(column) < 2:
+                if ord(column) - ord(grid[y, x]) < 2:
                     neighbors.append(y * columns + x)
 
             nodes.append(neighbors)
@@ -48,7 +51,17 @@ def pathfinder():
                 queue.put(neighbor)
                 counts[neighbor] = counts[node] + 1
 
-    print(f"Steps from begin to end: {counts[end]}")
+    print(f"Steps from begin to end: {counts[begin]}")
+
+    shortest = []
+
+    for node in lowest:
+        try:
+            shortest.append(counts[node])
+        except KeyError:
+            continue
+    
+    print(f"Shortest path from a to end: {min(shortest)}")
 
 if __name__ == "__main__":
 
