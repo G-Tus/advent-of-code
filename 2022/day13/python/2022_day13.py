@@ -1,4 +1,5 @@
 import json
+from copy import deepcopy
 from itertools import zip_longest
 
 def distress():
@@ -7,17 +8,35 @@ def distress():
         lines = file.read().splitlines()
 
     ordered = 0
+    signals = [
+        [[2]],
+        [[6]]
+    ]
 
     for i in range(0,len(lines),3):
         left = json.loads(lines[i])
         right = json.loads(lines[i + 1])
+        signals.append(left)
+        signals.append(right)
 
-        order = recursion(left, right)
+        order = recursion(deepcopy(left), deepcopy(right))
 
         if order:
             ordered += i // 3 + 1
 
-    print(ordered)
+    print(f"Distress signals in order: {ordered}")
+
+    length = len(signals)
+
+    for i in range(length):
+        for j in range(0, length - i - 1):
+            order = recursion(deepcopy(signals[j]), deepcopy(signals[j + 1]))
+            if not order:
+                signals[j], signals[j + 1] = signals[j + 1], signals[j]
+
+    dividers = [i + 1 for i in range(length) if signals[i] in [[[2]], [[6]]]]
+
+    print(f"The decoder key is: {dividers[0] * dividers[1]}")
 
 def recursion(left, right):
 
