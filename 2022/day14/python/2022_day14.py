@@ -22,6 +22,7 @@ def sandcave():
     width = max_x - min_x
     
     grid = np.full((max_y, width), False, dtype=np.bool8)
+    grid[-1, :] = True
 
     for rock in rocks:
         pairs = rock.split(" -> ")
@@ -41,17 +42,27 @@ def sandcave():
             
             start_x, start_y = end_x, end_y
 
+    column = [[False]] * max_y
+    column[-1] = [True]
+
+    part1 = False
     count = 0
-    abyss = False
-    while not abyss:
+    blocked = False
+    while not blocked:
         rest = False
         x, y = 500 - offset, 0
         while not rest:
 
-            if y == max_y - 1:
-                abyss = True
-                rest = True
-                break
+            if x == 0:
+                grid = np.concatenate([column, grid], axis=1)
+                offset -= 1
+
+            if x == grid.shape[1] - 1:
+                grid = np.concatenate([grid, column], axis=1)
+
+            if y == max_y - 2 and not part1:
+                part1 = True
+                print(f"Units of sand at rest part 1: {count}")
 
             if not grid[y + 1, x]:
                 y += 1
@@ -71,7 +82,10 @@ def sandcave():
             count += 1
             rest = True
 
-    print(f"Units of sand at rest: {count}")
+            if x == 500 - offset and y == 0:
+                blocked = True
+
+    print(f"Units of sand at rest part 2: {count}")
 
 if __name__ == "__main__":
 
