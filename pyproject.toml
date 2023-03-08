@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{include = "advent_of_code"}]
 
 [tool.poetry.dependencies]
-python = "3.11"
+python = "^3.11"
 numpy = "^1.23.5"
 
 
