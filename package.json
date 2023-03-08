@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "@types/node": "^18.14.6",
+    "fs": "^0.0.1-security",
+    "typescript": "^4.9.5"
+  },
+  "scripts": {
+    "start": "node lib/cli.js",
+    "build": "tsc"
+  }
+}
