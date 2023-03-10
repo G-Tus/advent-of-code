@@ -2,10 +2,10 @@ import { readFileSync } from 'fs';
 
 const lines: string[] = readFileSync('../input.txt', 'utf8').split("\n");
 
-var elf: number = 0;
-var backpacks: number[] = [0];
+let elf: number = 0;
+let backpacks: number[] = [0];
 
-for (var line of lines) {
+for (let line of lines) {
     if (line == "") {
         elf += 1;
         backpacks[elf] = 0;
