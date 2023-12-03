@@ -8,29 +8,43 @@ def cubes():
         "blue": 14,
     }
 
-    total = 0
+    part1 = 0
+    part2 = 0
+    
     for index, line in enumerate(data, 1):
         _, sets = line.split(":")
 
         possible = True
+        maximum = {
+            "red": 0,
+            "green": 0,
+            "blue": 0
+        }
 
         for set in sets.split(";"):
 
             for pair in set.split(","):
 
                 amount, color = pair.strip().split()
+                amount = int(amount)
 
-                if int(amount) > limits[color]:
+                if amount > limits[color]:
                     possible = False
-                    break
 
-            if not possible:
-                break
+                if amount > maximum[color]:
+                    maximum[color] = amount
 
         if possible:
-            total += index
+            part1 += index
 
-    print(f"Sum of game numbers: {total}")
+        product = 1
+        for number in maximum.values():
+            product *= number
+
+        part2 += product
+
+    print(f"Sum of game numbers: {part1}")
+    print(f"Sum of powers of sets of cubes: {part2}")
 
 if __name__ == "__main__":
     cubes()
