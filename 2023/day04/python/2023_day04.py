@@ -12,12 +12,12 @@ def scratchcards():
 
         card, numbers = line.split(":")
 
-        card = int(re.search("\d+", card).group())
+        card = int(re.search(r"\d+", card).group())
 
         winning, have = numbers.split("|")
 
-        winning = re.findall("\d+", winning)
-        have = re.findall("\d+", have)
+        winning = re.findall(r"\d+", winning)
+        have = re.findall(r"\d+", have)
 
         value = 0
         count = 0

@@ -14,7 +14,7 @@ def engine():
     gears = {}
 
     for i, row in enumerate(data):
-        numbers = re.finditer("\d+", row)
+        numbers = re.finditer(r"\d+", row)
 
         for number in numbers:
             start = number.start()
