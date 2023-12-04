@@ -1,3 +1,5 @@
+import re
+
 def exclusion():
 
     with open("../input.txt", "r") as file:
@@ -8,12 +10,12 @@ def exclusion():
     beacons = set()
 
     for row in data:
-        coordinates = row.split()
+        coordinates = re.findall(r"\d+", row)
 
-        sensor_x = int(coordinates[2].strip("x=,"))
-        sensor_y = int(coordinates[3].strip("y=:"))
-        beacon_x = int(coordinates[8].strip("x=,"))
-        beacon_y = int(coordinates[9].strip("y="))
+        sensor_x = int(coordinates[0])
+        sensor_y = int(coordinates[1])
+        beacon_x = int(coordinates[2])
+        beacon_y = int(coordinates[3])
 
         if beacon_y == y:
             beacons.add(beacon_x)
