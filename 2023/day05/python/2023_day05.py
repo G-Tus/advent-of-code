@@ -29,12 +29,14 @@ class Planting:
     
     def range_finding(self, start, stop):
         lowest = 0
+        full_range = stop - start
         while True:
             location, widths = self.seed_location(start)
 
             if (not lowest) or (location < lowest):
                 lowest = location
 
+            print(f"Seed: {start}, Location: {location}, Percentage left: {((stop - start) / full_range) * 100}%")
             start = start + min(widths)
 
             if start > stop:
