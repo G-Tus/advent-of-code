@@ -20,7 +20,19 @@ def boatrace():
 
         total *= count
 
-    print(f"Ways to beat record multiplied: {total}")
+    duration = int(re.search(r"\d+", data[0].replace(" ", "")).group())
+    record = int(re.search(r"\d+", data[1].replace(" ", "")).group())
+
+    count = 0
+
+    for i in range(0, duration):
+        distance = i * (duration - i)
+
+        if distance > record:
+            count += 1
+        
+    print(f"Ways to beat record part 1 multiplied: {total}")
+    print(f"Ways to beat record part 2: {count}")
 
 if __name__ == "__main__":
     boatrace()
