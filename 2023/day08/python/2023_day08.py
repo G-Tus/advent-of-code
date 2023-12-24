@@ -42,7 +42,7 @@ def wasteland():
 
     i = 0
 
-    counts = [[0, 0] for _ in range(6)]
+    counts = [[0, 0] for _ in range(len(nodes))]
 
     while True:
         instruction = 0 if instructions[i] == "L" else 1
