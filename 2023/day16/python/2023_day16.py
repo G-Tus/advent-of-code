@@ -1,13 +1,21 @@
 import numpy as np
-from copy import deepcopy
 
-def lavafloor():
+MIRRORS = {
+    "\\": {
+        "r": "d",
+        "d": "r",
+        "l": "u",
+        "u": "l"
+    },
+    "/": {
+        "r": "u",
+        "d": "l",
+        "l": "d",
+        "u": "r"
+    }
+}
 
-    with open("../input.txt", "r") as file:
-        data = file.read().splitlines()
-        data = [[space for space in row] for row in data]
-        data = np.array(data)
-
+def lasershow(data, x, y, direction):
     height = data.shape[0]
     width = data.shape[1]
 
@@ -15,24 +23,9 @@ def lavafloor():
 
     lasers = ["initial"]
 
-    x = 0
-    y = 0
-    direction = "r"
-
-    mirrors = {
-        "\\": {
-            "r": "d",
-            "d": "r",
-            "l": "u",
-            "u": "l"
-        },
-        "/": {
-            "r": "u",
-            "d": "l",
-            "l": "d",
-            "u": "r"
-        }
-    }
+    x = x
+    y = y
+    direction = direction
 
     while lasers:
 
@@ -56,7 +49,7 @@ def lavafloor():
                 direction = "d"
 
             case ("\\" | "/", _):
-                direction = mirrors[space][direction]
+                direction = MIRRORS[space][direction]
 
             case _:
                 pass
@@ -82,7 +75,32 @@ def lavafloor():
 
             x, y, direction = lasers[0].values()
 
-    print(f"Total tiles energized: {np.sum(energized != '')}")
+    return np.sum(energized != '')
+
+def lavafloor():
+
+    with open("../input.txt", "r") as file:
+        data = file.read().splitlines()
+        data = [[space for space in row] for row in data]
+        data = np.array(data)
+
+    height = data.shape[0]
+    width = data.shape[1]
+
+    print(f"Total tiles energized: {lasershow(data, 0, 0, 'r')}")
+
+    maximum = 0
+
+    for i in range(height):
+        maximum = max(
+            maximum,
+            lasershow(data, 0, i, "r"),
+            lasershow(data, i, 0, "d"),
+            lasershow(data, width - 1, i, "l"),
+            lasershow(data, i, height - 1, "u")
+        )
+
+    print(f"Most energized found: {maximum}")
 
 if __name__ == "__main__":
     lavafloor()
