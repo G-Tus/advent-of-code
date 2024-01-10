@@ -1,4 +1,5 @@
 import re
+from copy import deepcopy
 
 def aplenty():
 
@@ -61,7 +62,7 @@ def aplenty():
 
             workflow = workflows[name]
 
-            name = ""
+            name = workflow["last"]
 
             for step in workflow["steps"]:
                 
@@ -77,9 +78,6 @@ def aplenty():
                         name = step["destination"]
                         break
 
-            if not name:
-                name = workflow["last"]
-
             if name == "R":
                 break
 
@@ -89,6 +87,74 @@ def aplenty():
 
     print(f"Total rating of accepted parts: {total}")
 
+    first = {category: {"start": 1, "stop": 4000} for category in categories}
+    first["next"] = "in"
+
+    ranges = [first]
+    current = None
+    total = 0
+
+    while ranges:
+        if not current:
+            current = ranges.pop(0)
+
+        if current["next"] == "R":
+            current = None
+            continue
+
+        if current["next"] == "A":
+            current.pop("next")
+
+            product = 1
+            for width in current.values():
+                product *= (width["stop"] - width["start"] + 1)
+
+            total += product
+            current = None
+            continue
+
+        workflow = workflows[current["next"]]
+        current["next"] = workflow["last"]
+
+        for step in workflow["steps"]:
+
+            if step["symbol"] == "<":
+
+                match (current[step["letter"]]["stop"] >= step["number"], current[step["letter"]]["start"] < step["number"]):
+                    case (True, True):
+                        new = deepcopy(current)
+                        new[step["letter"]]["stop"] = step["number"] - 1
+                        new["next"] = step["destination"]
+                        ranges.append(new)
+
+                        current[step["letter"]]["start"] = step["number"]
+
+                    case (False, True):
+                        current["next"] = step["destination"]
+                        break
+
+                    case (True, False):
+                        continue
+
+            else:
+
+                match (current[step["letter"]]["stop"] > step["number"], current[step["letter"]]["start"] <= step["number"]):
+                    case (True, True):
+                        new = deepcopy(current)
+                        new[step["letter"]]["start"] = step["number"] + 1
+                        new["next"] = step["destination"]
+                        ranges.append(new)
+
+                        current[step["letter"]]["stop"] = step["number"]
+
+                    case (False, True):
+                        continue
+
+                    case (True, False):
+                        current["next"] = step["destination"]
+                        break
+
+    print(f"Distinct combinations possible: {total}")
 
 if __name__ == "__main__":
     aplenty()
