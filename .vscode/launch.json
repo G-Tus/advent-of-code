@@ -14,12 +14,22 @@
         },
         {
             "name": "Python",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true,
             "cwd": "${fileDirname}"
+        },
+        {
+            "name": "Rust",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/${relativeFileDirname}/../target/debug/rust", 
+            "args": [],
+            "cwd": "${workspaceFolder}/${relativeFileDirname}/../",
+            "preLaunchTask": "cargo build", // Ensure the binary is built
+            "sourceLanguages": ["rust"]
         }
     ]
 }
