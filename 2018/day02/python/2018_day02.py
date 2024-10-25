@@ -9,6 +9,9 @@ def checksum():
         3: 0
     }
 
+    other_boxes = deepcopy(data)
+    finished = False
+
     for index, box in enumerate(data):
         counts = {}
 
@@ -27,7 +30,9 @@ def checksum():
         if 3 in values:
             totals[3] += 1
 
-        other_boxes = deepcopy(data)
+        if finished:
+            continue
+
         other_boxes.pop(index)
 
         for box2 in other_boxes:
@@ -41,6 +46,7 @@ def checksum():
             if count == 1:
                 box_id = list(box)
                 box_id.pop(saved_index)
+                finished = True
                 break
 
     print(f"Checksum of boxes: {totals[2] * totals[3]}")
