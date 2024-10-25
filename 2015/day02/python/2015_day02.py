@@ -2,7 +2,8 @@ def wrapping_paper():
     with open("../input.txt", "r") as file:
         data = file.read().splitlines()
 
-    total = 0
+    paper = 0
+    ribbon = 0
 
     for box in data:
         areas = []
@@ -13,9 +14,14 @@ def wrapping_paper():
         areas.append(2 * height * length)
         areas.append(min(areas) // 2)
 
-        total += sum(areas)
+        paper += sum(areas)
 
-    print(f"Total amount of wrapping paper needed: {total}")
+        ordered = sorted([length, width, height])
+        ribbon += 2 * ordered[0] + 2 * ordered[1]
+        ribbon += length * width * height
+
+    print(f"Total amount of wrapping paper needed: {paper} square feet")
+    print(f"Total length of ribbon needed: {ribbon} feet")
 
 if __name__ == "__main__":
     wrapping_paper()
