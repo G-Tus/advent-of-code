@@ -1,4 +1,4 @@
-def computer(noun: int, verb: int):
+def computer(noun: int, verb: int) -> int:
     with open("../input.txt", "r") as file:
         data = [int(number) for number in file.read().split(",")]
 
@@ -8,9 +8,7 @@ def computer(noun: int, verb: int):
     data[2] = verb
 
     while True:
-        operation = data[pointer]
-
-        match operation:
+        match data[pointer]:
             case 1:
                 data[data[pointer + 3]] = data[data[pointer + 1]] + data[data[pointer + 2]]
             
