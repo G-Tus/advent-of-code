@@ -34,12 +34,10 @@ def naughty_strings():
 
         for index in range(len(string) - 1):
             string_copy = list(deepcopy(string))
-            letter1 = string_copy[index]
-            string_copy[index] = "0"
-            letter2 = string_copy[index + 1]
-            string_copy[index + 1] = "0"
+            letters = "".join(string_copy[index:index + 2])
+            string_copy[index:index + 2] = "00"
 
-            if f"{letter1}{letter2}" in "".join(string_copy):
+            if letters in "".join(string_copy):
                 double_pair = True
                 break
 
