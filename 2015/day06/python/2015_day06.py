@@ -2,7 +2,7 @@ def lights():
     with open("../input.txt", "r") as file:
         instructions = file.read().splitlines()
 
-    grid = [[False for _ in range(1000)] for _ in range(1000)]
+    lights = [[False for _ in range(1000)] for _ in range(1000)]
     brightness = [[0 for _ in range(1000)] for _ in range(1000)]
 
     for instruction in instructions:
@@ -26,10 +26,10 @@ def lights():
 
         for x in range(start_x, stop_x):
             for y in range(start_y, stop_y):
-                grid[y][x] = switch(grid[y][x])
+                lights[y][x] = switch(lights[y][x])
                 brightness[y][x] = control(brightness[y][x])
 
-    print(f"Lights on: {sum(sum(row) for row in grid)}")
+    print(f"Lights on: {sum(sum(row) for row in lights)}")
     print(f"Total brightness: {sum(sum(row) for row in brightness)}")
 
 if __name__ == "__main__":
