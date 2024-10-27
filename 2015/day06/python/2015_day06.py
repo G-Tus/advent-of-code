@@ -11,15 +11,13 @@ def lights():
         start_x, start_y = [int(number) for number in parts[-3].split(",")]
         stop_x, stop_y = [int(number) + 1 for number in parts[-1].split(",")]
 
-        size = (stop_x - start_x) * (stop_y - start_y)
-
         match parts[1]:
             case "on":
-                switch = lambda x: True
+                switch = lambda _: True
                 control = lambda x: x + 1
 
             case "off":
-                switch = lambda x: False
+                switch = lambda _: False
                 control = lambda x: 0 if x - 1 < 0 else x - 1
 
             case _:
