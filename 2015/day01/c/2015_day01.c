@@ -23,9 +23,6 @@ int main() {
             case ')':
                 floor--;
                 break;
-
-            default:
-                break;
         }
 
         if (first == 0 && floor == -1) {
