@@ -9,9 +9,12 @@ int main() {
     }
 
     int floor = 0;
+    int position = 0;
+    int first = 0;
     char move;
-
+    
     while ((move = fgetc(file)) != EOF) {
+        position++;
         switch (move) {
             case '(':
                 floor++;
@@ -24,9 +27,14 @@ int main() {
             default:
                 break;
         }
+
+        if (first == 0 && floor == -1) {
+            first = position;
+        }
     }
 
     printf("Santa is on floor: %d\n", floor);
+    printf("Santa first entered basement on position: %d\n", first);
 
     fclose(file);
     
