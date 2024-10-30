@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "cargo build",
+            "label": "rust_build",
             "type": "shell",
             "command": "cargo",
             "args": [
@@ -18,6 +18,29 @@
             "options": {
                 "cwd": "${workspaceFolder}/${relativeFileDirname}"
             }
+        },
+        {
+            "label": "c_build",
+            "type": "shell",
+            "command": "clang",
+            "args": [
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "presentation": {
+                "reveal": "silent",
+                "clear": true
+            }
         }
     ]
 }
+

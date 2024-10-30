@@ -28,8 +28,17 @@
             "program": "${workspaceFolder}/${relativeFileDirname}/../target/debug/rust", 
             "args": [],
             "cwd": "${workspaceFolder}/${relativeFileDirname}/../",
-            "preLaunchTask": "cargo build", // Ensure the binary is built
+            "preLaunchTask": "rust_build",
             "sourceLanguages": ["rust"]
+        },
+        {
+            "name": "C",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "args": [],
+            "cwd": "${fileDirname}",
+            "preLaunchTask": "c_build"
         }
     ]
 }
