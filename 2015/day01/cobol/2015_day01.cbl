@@ -25,7 +25,7 @@
            88 FIRST-TIME VALUE 0.
 
        PROCEDURE DIVISION.
-       MAIN-PARA.
+       MAIN.
            PERFORM OPEN-FILE
            PERFORM READ-STEPS UNTIL FILE-EOF
            DISPLAY "Santa ends on floor: " FLOOR
@@ -42,8 +42,6 @@
 
        READ-STEPS.
            READ INPUT-FILE
-               AT END
-                   SET FILE-EOF TO TRUE
                NOT AT END
                    PERFORM PROCESS-STEP
            END-READ.
@@ -53,20 +51,14 @@
 
            EVALUATE INPUT-CHAR
                WHEN "("
-                   PERFORM FLOOR-UP
+                   ADD 1 TO FLOOR
                WHEN ")"
-                   PERFORM FLOOR-DOWN
+                   SUBTRACT 1 FROM FLOOR
            END-EVALUATE.
 
            IF UNDERGROUND AND FIRST-TIME
                MOVE STEPS TO LOCATION
            END-IF.
-
-       FLOOR-UP.
-           ADD 1 TO FLOOR.
-
-       FLOOR-DOWN.
-           SUBTRACT 1 FROM FLOOR.
 
        CLOSE-FILE.
            CLOSE INPUT-FILE.
