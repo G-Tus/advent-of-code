@@ -17,8 +17,11 @@ func main() {
 
 	reader := bufio.NewReader(file)
 	floor := 0
+	position := 0
+	first := 0
 
 	for {
+		position++
 		char, _, err := reader.ReadRune()
 		if err == io.EOF {
 			break
@@ -33,7 +36,12 @@ func main() {
 		case ')':
 			floor--
 		}
+
+		if floor == -1 && first == 0 {
+			first = position
+		}
 	}
 
 	fmt.Println("Santa ends at floor:", floor)
+	fmt.Println("Santa enters basement at:", first)
 }
