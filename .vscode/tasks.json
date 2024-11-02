@@ -40,6 +40,27 @@
                 "reveal": "silent",
                 "clear": true
             }
+        },
+        {
+            "label": "cobol_build",
+            "type": "shell",
+            "command": "cobc",
+            "args": [
+                "-x",
+                "-free",
+                "-Wall",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}",
+                "${file}"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "silent",
+                "clear": true
+            }
         }
     ]
 }

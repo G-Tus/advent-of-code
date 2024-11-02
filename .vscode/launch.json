@@ -10,7 +10,7 @@
                 "<node_internals>/**"
             ],
             "type": "node",
-            "cwd": "${fileDirname}"
+            "cwd": "${fileDirname}",
         },
         {
             "name": "Python",
@@ -39,6 +39,15 @@
             "args": [],
             "cwd": "${fileDirname}",
             "preLaunchTask": "c_build"
+        },
+        {
+            "name": "COBOL",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "args": [],
+            "cwd": "${fileDirname}",
+            "preLaunchTask": "cobol_build"
         }
     ]
 }
