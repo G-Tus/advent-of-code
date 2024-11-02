@@ -3,14 +3,17 @@
     "configurations": [
         {
             "name": "TypeScript",
-            "program": "${file}",
-            "request": "launch",
-            "preLaunchTask": "npm: build",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
             "type": "node",
+            "request": "launch",
+            "runtimeArgs": ["-r", "ts-node/register"],
+            "args": ["${file}"],
+            "skipFiles": ["<node_internals>/**"],
             "cwd": "${fileDirname}",
+            "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"],
+            "sourceMaps": true,
+            "env": {
+                "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json"
+            }
         },
         {
             "name": "Python",
