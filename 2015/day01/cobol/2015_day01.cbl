@@ -1,7 +1,6 @@
-      $set sourceformat(free)
        IDENTIFICATION DIVISION.
        PROGRAM-ID. AoC_2015_day01.
-       
+             
        ENVIRONMENT DIVISION.
        INPUT-OUTPUT SECTION.
        FILE-CONTROL.
