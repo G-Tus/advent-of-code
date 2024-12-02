@@ -14,7 +14,7 @@ def check_safety(report):
         elif diff > 0:
             descending = True
 
-        if abs(diff) > 3 or diff == 0:
+        if abs(diff) > 3 or diff == 0 or (ascending and descending):
             difference = True
             break
 
