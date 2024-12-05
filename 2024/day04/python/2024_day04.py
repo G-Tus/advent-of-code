@@ -31,9 +31,9 @@ def word_search():
                             total += 1
 
             elif character == "A":
-                if x == 0 and y == 0:
+                if x == 0 or y == 0:
                     continue
-                
+
                 try:
                     if (((data[y + 1][x - 1] + character + data[y - 1][x + 1]) in ["MAS", "SAM"]) and
                         ((data[y + 1][x + 1] + character + data[y - 1][x - 1]) in ["MAS", "SAM"])):
