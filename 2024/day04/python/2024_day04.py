@@ -31,14 +31,16 @@ def word_search():
                             total += 1
 
             elif character == "A":
-                if x != 0 and y != 0:
-                    try:
-                        if (((data[y + 1][x - 1] + character + data[y - 1][x + 1]) in ["MAS", "SAM"]) and
-                            ((data[y + 1][x + 1] + character + data[y - 1][x - 1]) in ["MAS", "SAM"])):
-                                total_cross += 1
+                if x == 0 and y == 0:
+                    continue
+                
+                try:
+                    if (((data[y + 1][x - 1] + character + data[y - 1][x + 1]) in ["MAS", "SAM"]) and
+                        ((data[y + 1][x + 1] + character + data[y - 1][x - 1]) in ["MAS", "SAM"])):
+                            total_cross += 1
 
-                    except:
-                        continue
+                except:
+                    continue
 
     print(f"Number of times XMAS: {total}")
     print(f"Number of X-MAS: {total_cross}")
