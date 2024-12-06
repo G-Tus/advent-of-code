@@ -18,7 +18,6 @@ def speed():
 
     while True:
         data[y][x] = "X"
-        print(data)
 
         if (y - 1) not in range(rows):
             break
