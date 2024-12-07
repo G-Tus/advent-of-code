@@ -2,23 +2,20 @@ from re import findall
 
 def calculator(total, array, intermediate):
     if total < intermediate:
-        return 0
+        return False
+    
+    number = int(array.pop(0))
+    concat = int(str(intermediate) + str(number))
 
-    elif len(array) == 1:
-        addition = total == intermediate + int(array[0])
-        multiplication = total == intermediate * int(array[0])
-        concatenation = total == int(str(intermediate) + array[0])
+    if not array:
+        addition = total == intermediate + number
+        multiplication = total == intermediate * number
+        concatenation = total == int(str(intermediate) + str(number))
     
     else:
-        number = int(array.pop(0))
         addition = calculator(total, array.copy(), intermediate + number)
-        if intermediate == 0: 
-            concatenation = calculator(total, array.copy(), number)
-            intermediate = 1
-
-        else:
-            concatenation = calculator(total, array.copy(), int(str(intermediate) + str(number)))
-
+        concatenation = calculator(total, array.copy(), concat)
+        if intermediate == 0: intermediate = 1
         multiplication = calculator(total, array.copy(), intermediate * number)
 
     return addition or multiplication or concatenation
