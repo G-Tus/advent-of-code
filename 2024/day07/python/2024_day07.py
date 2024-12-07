@@ -7,14 +7,21 @@ def calculator(total, array, intermediate):
     elif len(array) == 1:
         addition = total == intermediate + int(array[0])
         multiplication = total == intermediate * int(array[0])
+        concatenation = total == int(str(intermediate) + array[0])
     
     else:
         number = int(array.pop(0))
         addition = calculator(total, array.copy(), intermediate + number)
-        if intermediate == 0: intermediate = 1
+        if intermediate == 0: 
+            concatenation = calculator(total, array.copy(), number)
+            intermediate = 1
+
+        else:
+            concatenation = calculator(total, array.copy(), int(str(intermediate) + str(number)))
+
         multiplication = calculator(total, array.copy(), intermediate * number)
 
-    return addition or multiplication
+    return addition or multiplication or concatenation
 
 def calibration():
     with open("../input.txt", "r") as file:
