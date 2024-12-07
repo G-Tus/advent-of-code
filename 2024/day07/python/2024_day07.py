@@ -10,7 +10,7 @@ def calculator(total, array, intermediate):
     if not array:
         addition = total == intermediate + number
         multiplication = total == intermediate * number
-        concatenation = total == int(str(intermediate) + str(number))
+        concatenation = total == concat
     
     else:
         addition = calculator(total, array.copy(), intermediate + number)
