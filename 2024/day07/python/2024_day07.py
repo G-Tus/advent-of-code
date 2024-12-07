@@ -25,6 +25,7 @@ def calibration():
         data = file.read().splitlines()
 
     result = 0
+    
     for line in data:
         numbers = findall(r"\d+", line)
         total = int(numbers.pop(0))
