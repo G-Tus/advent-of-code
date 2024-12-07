@@ -1,6 +1,6 @@
 from re import findall
 
-def calculator(total, array, intermediate):
+def calculator(total, array, intermediate = 0):
     if total < intermediate:
         return False
     
@@ -25,11 +25,11 @@ def calibration():
         data = file.read().splitlines()
 
     result = 0
-    
+
     for line in data:
         numbers = findall(r"\d+", line)
         total = int(numbers.pop(0))
-        result += total if calculator(total, numbers, 0) else 0
+        result += total if calculator(total, numbers) else 0
     
     print(f"Total calibration result: {result}")
 
